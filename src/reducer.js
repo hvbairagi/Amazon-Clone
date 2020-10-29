@@ -2,6 +2,7 @@
 
 export const initialState = {
     basket: [],
+    user: null,
 };
 
 // Selector
@@ -32,7 +33,11 @@ const reducer = (state, action) => {
                 // basket: state.basket.filter(item=>item.id !== action.id) // disadvantage of this: if you select multiple same things and then remove, it will remove all the same items not one
                 basket: newBasket
             }
-
+        case 'SET_USER':
+            return {
+                ...state,
+                user: action.user
+            }
         default:
             return state;
     }
