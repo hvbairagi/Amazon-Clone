@@ -4,9 +4,11 @@ import CurrencyFormat from "react-currency-format"
 import { ShoppingBasket } from '@material-ui/icons'
 import {useStateValue} from './StateProvider'
 import {getBasketTotal} from './reducer'
+import { useHistory } from 'react-router-dom'
 
 function Subtotal() {
-    const[ {basket}, dispatch ] = useStateValue();
+    const history = useHistory();
+    const[ {basket}, dispatch ] = useStateValue();  // gives browser history
     const subtotal = basket?.reduce((acc,aBasket) => (acc+=aBasket.price), 0); // accumulator, item, initial value
     // console.log(subtotal);
     return (
@@ -31,7 +33,9 @@ function Subtotal() {
             prefix={"$"}
             />
 
-            <button>Proceed to Checkout</button>
+            <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+            {/* if you want to programmatically use the user to somewhere you need to use this, not Link to.. and not style like link */}
+            {/* if there is not Route that matches the /payment, the Route goes to default */}
         </div>
     )
 }

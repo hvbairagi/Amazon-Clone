@@ -4,11 +4,19 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
 import { Link } from "react-router-dom"
 import { useStateValue } from './StateProvider';
+import { auth } from './firebase';
 
 
 // {basket?.length} => optional chaining which means if you have basket error or undefine, it won't freekout... handles error
 function Header() {
-    const[ {basket}, dispatch ] = useStateValue();
+    const[ {basket, user}, dispatch ] = useStateValue();
+    const userName = user? user.email.substring(0, user.email.indexOf('@')) : 'Guest';
+    // alert(user?.email.substring(0, 4));
+    const handleAuthentication = () => {
+        if(user){
+            auth.signOut();
+        }
+    }
     return (
         <div className="header">
             <Link to="/">
@@ -20,17 +28,20 @@ function Header() {
                 <SearchIcon className="header__searchIcon"/>
             </div>
             <div className="header__nav">
-                <Link to="/login">
-                    <div className="header__option">
-                        <span className="header__optionLineOne">Hello Guest</span>
-                        <span className="header__optionLineTwo">Sign In</span>
+                <Link to={!user && "/login"}>
+                    <div onClick={handleAuthentication} className="header__option">
+                        <span className="header__optionLineOne">Hello {userName}</span>
+                        <span className="header__optionLineTwo">{user? 'Sign Out' : 'Sing In'}</span>
                     </div>
                 </Link>
                 
-                <div className="header__option">
-                <span className="header__optionLineOne">Returns</span>
-                    <span className="header__optionLineTwo">& Orders</span>
-                </div>
+                <Link to='/orders'>     {/* Checks USER in Orders.js so no need to check in here */}
+                    <div className="header__option">
+                    <span className="header__optionLineOne">Returns</span>
+                        <span className="header__optionLineTwo">& Orders</span>
+                    </div>
+                </Link>
+                
                 <div className="header__option">
                 <span className="header__optionLineOne">Your</span>
                     <span className="header__optionLineTwo">Prime</span>
