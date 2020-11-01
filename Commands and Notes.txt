@@ -1,0 +1,40 @@
+Amazon Clone
+
+npm install react-router-dom
+npm i react-currency-format
+npm i -g firebase-tools
+npm i @stripe/stripe-js
+npm i @stripe/react-stripe-js
+npm i axios
+
+should be in functions directory
+npm i express
+npm i cors
+npm i stripe
+npm i moment
+
+
+
+firebase emulators:start
+
+firebase init -> functions -> javascript -> y -> y
+then the functions folder appears and this is the full backend
+functions folder has its own node-modules, index.js, etc... 
+it is like another project in your project
+if you do npm install at any point now, make sure you are inside the functions folder... otherwise
+you are going to install things in your app and not in backend
+
+stripe publishable api key  (https://dashboard.stripe.com/test/apikeys)
+
+
+
+firebase deploy --only functions  // deploying only backend
+// if fails you should update to firebase to Blaze not Spark
+// https://console.firebase.google.com/project/clone-e8235/overview
+// grab url in cloud functions
+
+firebase deploy --only hosting   // to prevent deploying cloud functions  (hosting is the front-end)
+
+
+// if index.html contents rewrites change the firebase.json
+// delete the rewrites part
