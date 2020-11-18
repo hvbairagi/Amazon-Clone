@@ -67,3 +67,8 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.header__link {
+  color: white;
+  text-decoration: none;
+}
